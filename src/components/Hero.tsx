@@ -1,7 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleBrowseCategories = () => {
+    // First navigate to home if not already there
+    if (window.location.pathname !== '/') {
+      navigate('/');
+    }
+    // Then scroll to categories section
+    setTimeout(() => {
+      const categoriesSection = document.getElementById('categories');
+      if (categoriesSection) {
+        categoriesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800">
       <div className="absolute inset-0 bg-[url('./grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
@@ -45,12 +61,12 @@ const Hero: React.FC = () => {
                         </Link>
                       </div>
                       <div className="mt-3 sm:mt-0 sm:ml-3">
-                        <a
-                          href="#categories"
+                        <button
+                          onClick={handleBrowseCategories}
                           className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-100 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 hover:from-purple-500/20 hover:to-indigo-500/20 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(168,162,255,0.3)] hover:shadow-[0_0_25px_rgba(168,162,255,0.5)]"
                         >
                           Browse Categories
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
