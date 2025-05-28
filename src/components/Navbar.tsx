@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
             <Link to="/" className="flex items-center group">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg opacity-75 group-hover:opacity-100 transition-opacity blur-sm"></div>
-                <img src="./favicon.svg" alt="ShoppyGlobe" className="h-8 w-8 mr-2 relative" />
+                <img src="/MyShopping/favicon.svg" alt="ShoppyGlobe" className="h-8 w-8 mr-2 relative" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">ShoppyGlobe</span>
             </Link>
