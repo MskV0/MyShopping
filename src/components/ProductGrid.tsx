@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import ProductCard from './ProductCard';
 import type { Product } from '../types';
 import styles from '../styles/ProductsPage.module.css';
@@ -11,6 +12,39 @@ interface ProductGridProps {
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, error, newProductId }) => {
+  const parentRef = useRef<HTMLDivElement>(null);
+  
+  // Calculate grid columns based on viewport width
+  const getGridColumns = useCallback(() => {
+    if (typeof window === 'undefined') return 4;
+    const width = window.innerWidth;
+    if (width < 640) return 1;
+    if (width < 1024) return 2;
+    if (width < 1280) return 3;
+    return 4;
+  }, []);
+
+  const [columns, setColumns] = React.useState(getGridColumns());
+
+  // Update columns on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setColumns(getGridColumns());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getGridColumns]);
+
+  // Calculate rows for virtualization
+  const rowCount = Math.ceil(products.length / columns);
+
+  const rowVirtualizer = useVirtualizer({
+    count: rowCount,
+    getScrollElement: () => parentRef.current,
+    estimateSize: useCallback(() => 400, []), // Approximate row height
+    overscan: 5, // Number of items to render outside of the visible area
+  });
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -51,18 +85,64 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, error, n
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product) => (
-        <div
-          key={product.id}
-          id={`product-${product.id}`}
-          className={`${newProductId === product.id ? 'animate-highlight' : ''}`}
-        >
-          <ProductCard product={product} highlight={newProductId === product.id} />
-        </div>
-      ))}
+    <div 
+      ref={parentRef} 
+      className="min-h-[800px] overflow-auto"
+      style={{
+        contain: 'paint',
+        willChange: 'transform',
+        position: 'relative',
+      }}
+    >
+      <div
+        style={{
+          height: `${rowVirtualizer.getTotalSize()}px`,
+          width: '100%',
+          position: 'relative',
+        }}
+      >
+        {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+          const startIndex = virtualRow.index * columns;
+          const rowProducts = products.slice(startIndex, startIndex + columns);
+          
+          return (
+            <div
+              key={virtualRow.index}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: `${virtualRow.size}px`,
+                transform: `translateY(${virtualRow.start}px)`,
+                pointerEvents: 'auto',
+              }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
+              {rowProducts.map((product) => (
+                <div
+                  key={product.id}
+                  id={`product-${product.id}`}
+                  className={`${newProductId === product.id ? 'animate-highlight' : ''}`}
+                  style={{
+                    contain: 'paint',
+                    willChange: 'transform',
+                    pointerEvents: 'auto',
+                  }}
+                >
+                  <ProductCard 
+                    product={product} 
+                    highlight={newProductId === product.id}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
-export default ProductGrid;
+export default React.memo(ProductGrid);
