@@ -295,6 +295,7 @@ const ProductsPage: React.FC = () => {
                   trigger={
                     <button
                       type="button"
+                      data-category-filter
                       className="w-full md:w-56 px-4 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 hover:bg-white dark:hover:bg-dark-card text-left flex items-center justify-between group"
                     >
                       <span className={selectedCategory ? 'text-gray-900 dark:text-dark-text' : 'text-gray-500 dark:text-dark-text-secondary'}>

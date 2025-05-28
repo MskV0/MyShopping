@@ -7,19 +7,20 @@ const Hero: React.FC = () => {
   const location = useLocation();
 
   const handleBrowseCategories = () => {
-    // Navigate to home if not already there
-    if (location.pathname !== '/') {
-      navigate('/', { replace: true });
+    // Navigate to products page if not already there
+    if (location.pathname !== '/products') {
+      navigate('/products');
     }
     
     // Use requestAnimationFrame to ensure smooth scrolling after navigation
     requestAnimationFrame(() => {
-      const categoriesSection = document.getElementById('categories');
-      if (categoriesSection) {
+      // Find the category filter dropdown
+      const categoryFilter = document.querySelector('[data-category-filter]');
+      if (categoryFilter) {
         // Add a small delay to ensure the section is rendered
         setTimeout(() => {
           const yOffset = -80; // Offset for the sticky header
-          const y = categoriesSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          const y = categoryFilter.getBoundingClientRect().top + window.pageYOffset + yOffset;
           window.scrollTo({
             top: y,
             behavior: 'smooth'
