@@ -1,21 +1,28 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBrowseCategories = () => {
     // First navigate to home if not already there
-    if (window.location.pathname !== '/') {
+    if (location.pathname !== '/') {
       navigate('/');
-    }
-    // Then scroll to categories section
-    setTimeout(() => {
+      // Wait for navigation to complete before scrolling
+      setTimeout(() => {
+        const categoriesSection = document.getElementById('categories');
+        if (categoriesSection) {
+          categoriesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500); // Increased timeout to ensure navigation completes
+    } else {
+      // If already on home page, just scroll
       const categoriesSection = document.getElementById('categories');
       if (categoriesSection) {
         categoriesSection.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 100);
+    }
   };
 
   return (
