@@ -7,23 +7,26 @@ const Hero: React.FC = () => {
   const location = useLocation();
 
   const handleBrowseCategories = () => {
-    // First navigate to home if not already there
+    // Navigate to home if not already there
     if (location.pathname !== '/') {
-      navigate('/');
-      // Wait for navigation to complete before scrolling
-      setTimeout(() => {
-        const categoriesSection = document.getElementById('categories');
-        if (categoriesSection) {
-          categoriesSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 500); // Increased timeout to ensure navigation completes
-    } else {
-      // If already on home page, just scroll
+      navigate('/', { replace: true });
+    }
+    
+    // Use requestAnimationFrame to ensure smooth scrolling after navigation
+    requestAnimationFrame(() => {
       const categoriesSection = document.getElementById('categories');
       if (categoriesSection) {
-        categoriesSection.scrollIntoView({ behavior: 'smooth' });
+        // Add a small delay to ensure the section is rendered
+        setTimeout(() => {
+          const yOffset = -80; // Offset for the sticky header
+          const y = categoriesSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+          });
+        }, 100);
       }
-    }
+    });
   };
 
   return (
