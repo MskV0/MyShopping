@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-white via-white to-indigo-50 dark:from-dark-bg dark:via-dark-bg dark:to-dark-bg backdrop-blur-sm shadow-lg relative">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-10"></div>
+      <div className="absolute inset-0 bg-[url('./grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-10"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between h-16">
           {/* Logo and Brand */}
@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
             <Link to="/" className="flex items-center group">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg opacity-75 group-hover:opacity-100 transition-opacity blur-sm"></div>
-                <img src="/favicon.svg" alt="ShoppyGlobe" className="h-8 w-8 mr-2 relative" />
+                <img src="./favicon.svg" alt="ShoppyGlobe" className="h-8 w-8 mr-2 relative" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">ShoppyGlobe</span>
             </Link>

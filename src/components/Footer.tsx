@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-900 to-indigo-900/90 text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+      <div className="absolute inset-0 bg-[url('./grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg opacity-75 group-hover:opacity-100 transition-opacity blur-sm"></div>
                 <div className="relative bg-gray-900 rounded-lg p-2 flex items-center">
-                  <img src="/favicon.svg" alt="ShoppyGlobe" className="h-8 w-8 mr-2" />
+                  <img src="./favicon.svg" alt="ShoppyGlobe" className="h-8 w-8 mr-2" />
                   <h3 className="text-xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">ShoppyGlobe</h3>
                 </div>
               </div>
