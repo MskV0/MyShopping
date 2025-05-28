@@ -6,6 +6,12 @@ import { useOrders } from '../context/OrdersContext';
 import styles from '../styles/ProductsPage.module.css';
 import toast from 'react-hot-toast';
 
+// Import payment icons
+import visaIcon from '/icons/payment/visa.svg';
+import mastercardIcon from '/icons/payment/mastercard.svg';
+import amexIcon from '/icons/payment/amex.svg';
+import paypalIcon from '/icons/payment/paypal.svg';
+
 const CartPage: React.FC = () => {
   const { items, totalItems, totalAmount, removeFromCart, updateQuantity, clearCart } = useCart();
   const { addOrder } = useOrders();
@@ -213,16 +219,16 @@ const CartPage: React.FC = () => {
                 <div className="mt-6 pt-6 border-t border-gray-200 dark:border-dark-border">
                   <div className="grid grid-cols-4 gap-4">
                     <div className="relative h-8">
-                      <img src="/MyShopping/icons/payment/visa.svg" alt="Visa" className="w-full h-full object-contain" />
+                      <img src={visaIcon} alt="Visa" className="w-full h-full object-contain" />
                     </div>
                     <div className="relative h-8">
-                      <img src="/MyShopping/icons/payment/mastercard.svg" alt="Mastercard" className="w-full h-full object-contain" />
+                      <img src={mastercardIcon} alt="Mastercard" className="w-full h-full object-contain" />
                     </div>
                     <div className="relative h-8">
-                      <img src="/MyShopping/icons/payment/amex.svg" alt="American Express" className="w-full h-full object-contain" />
+                      <img src={amexIcon} alt="American Express" className="w-full h-full object-contain" />
                     </div>
                     <div className="relative h-8">
-                      <img src="/MyShopping/icons/payment/paypal.svg" alt="PayPal" className="w-full h-full object-contain" />
+                      <img src={paypalIcon} alt="PayPal" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </div>
