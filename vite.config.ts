@@ -13,7 +13,10 @@ export default defineConfig({
           const info = assetInfo.name.split('.')
           const ext = info[info.length - 1]
           if (/\.(svg|png|jpg|jpeg|gif)$/.test(assetInfo.name)) {
-            if (assetInfo.name === 'favicon.svg' || assetInfo.name.startsWith('icons/payment/')) {
+            if (assetInfo.name.startsWith('icons/payment/')) {
+              return `assets/icons/payment/[name]-[hash][extname]`
+            }
+            if (assetInfo.name === 'favicon.svg') {
               return `[name][extname]`
             }
             return `assets/[name]-[hash][extname]`

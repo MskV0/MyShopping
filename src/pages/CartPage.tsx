@@ -6,11 +6,11 @@ import { useOrders } from '../context/OrdersContext';
 import styles from '../styles/ProductsPage.module.css';
 import toast from 'react-hot-toast';
 
-// Import payment icons
-import visaIcon from '/icons/payment/visa.svg';
-import mastercardIcon from '/icons/payment/mastercard.svg';
-import amexIcon from '/icons/payment/amex.svg';
-import paypalIcon from '/icons/payment/paypal.svg';
+// Import payment icons from public directory
+import visaIcon from '../../public/icons/payment/visa.svg';
+import mastercardIcon from '../../public/icons/payment/mastercard.svg';
+import amexIcon from '../../public/icons/payment/amex.svg';
+import paypalIcon from '../../public/icons/payment/paypal.svg';
 
 const CartPage: React.FC = () => {
   const { items, totalItems, totalAmount, removeFromCart, updateQuantity, clearCart } = useCart();
