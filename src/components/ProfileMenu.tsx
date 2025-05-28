@@ -107,30 +107,30 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = () => {
     <div ref={menuRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-1 text-gray-700 dark:text-dark-text hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none transition-colors duration-200"
+        className="flex items-center space-x-1 sm:space-x-2 text-gray-700 dark:text-dark-text hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none transition-colors duration-200"
       >
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 rounded-lg opacity-0 group-hover:opacity-75 transition-opacity blur-sm"></div>
-          <User size={20} className="relative" />
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-75 transition-opacity blur-sm"></div>
+          <User size={18} className="sm:size-20 relative" />
         </div>
         {isAuthenticated && (
-          <span className="text-sm hidden md:inline-block font-medium">
+          <span className="text-xs sm:text-sm hidden md:inline-block font-medium">
             {user?.name || 'Profile'}
           </span>
         )}
         <ChevronDown
-          size={16}
-          className={`transform transition-transform duration-200 ${
+          size={14}
+          className={`sm:size-16 transform transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-56 bg-white/95 dark:bg-dark-card/95 backdrop-blur-sm rounded-xl shadow-lg py-2 z-50 ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 transform opacity-100 scale-100 transition-all duration-200">
+        <div className="absolute right-0 mt-2 sm:mt-3 w-48 sm:w-56 bg-white/95 dark:bg-dark-card/95 backdrop-blur-sm rounded-lg sm:rounded-xl shadow-lg py-1 sm:py-2 z-50 ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 transform opacity-100 scale-100 transition-all duration-200">
           {isAuthenticated && user && (
-            <div className="px-4 py-3 border-b border-gray-100 dark:border-dark-border">
-              <p className="text-sm font-semibold text-gray-900 dark:text-dark-text mb-0.5">{user.name}</p>
+            <div className="px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-100 dark:border-dark-border">
+              <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-dark-text mb-0.5">{user.name}</p>
               <p className="text-xs text-gray-500 dark:text-dark-text-secondary truncate">{user.email}</p>
             </div>
           )}
@@ -142,12 +142,12 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = () => {
                   item.onClick();
                   setIsOpen(false);
                 }}
-                className={`w-full px-4 py-2.5 text-left flex items-center space-x-3 transition-colors duration-200 ${
+                className={`w-full px-3 sm:px-4 py-2 sm:py-2.5 text-left flex items-center space-x-2 sm:space-x-3 transition-colors duration-200 text-xs sm:text-sm ${
                   item.className || 'text-gray-700 dark:text-dark-text hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-dark-border'
                 }`}
               >
-                <item.icon size={18} className="flex-shrink-0" />
-                <span className="font-medium text-sm">{item.label}</span>
+                <item.icon size={16} className="sm:size-18 flex-shrink-0" />
+                <span className="font-medium">{item.label}</span>
               </button>
             ))}
           </div>
