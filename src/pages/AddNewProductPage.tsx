@@ -142,7 +142,9 @@ const AddNewProductPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-glow bg-gradient-mesh">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-10"></div>
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[url('./grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-10"></div>
+      </div>
       <div className="max-w-5xl mx-auto p-6 relative">
         {/* Header */}
         <div className="mb-8">
