@@ -69,22 +69,14 @@ const ProfileLayout: React.FC = () => {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-base relative overflow-hidden group ${
+                        className={`block w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-base ${
                           location.pathname === item.path
-                            ? 'bg-indigo-50 dark:bg-dark-border text-indigo-600 dark:text-indigo-400 font-medium shadow-sm'
+                            ? 'bg-indigo-50 dark:bg-dark-border text-indigo-600 dark:text-indigo-400 font-medium'
                             : 'text-gray-700 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-border hover:text-indigo-600 dark:hover:text-indigo-400'
                         }`}
                       >
-                        {/* Active indicator */}
-                        {location.pathname === item.path && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/5 dark:to-purple-400/5"></div>
-                        )}
-                        {/* Touch target overlay */}
-                        <div className="absolute inset-0 bg-transparent"></div>
-                        <item.icon className="h-5 w-5 sm:h-5 sm:w-5 relative z-10" />
-                        <span className="relative z-10">{item.label}</span>
-                        {/* Hover effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/0 to-indigo-500/0 group-hover:from-indigo-500/5 group-hover:via-indigo-500/10 group-hover:to-purple-500/5 transition-all duration-300"></div>
+                        <item.icon className="h-5 w-5 flex-shrink-0" />
+                        <span>{item.label}</span>
                       </Link>
                     ))}
                   </nav>
