@@ -10,10 +10,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'favicon.svg') {
-            return 'favicon.svg'
+          const info = assetInfo.name.split('.')
+          const ext = info[info.length - 1]
+          if (/\.(svg|png|jpg|jpeg|gif)$/.test(assetInfo.name)) {
+            if (assetInfo.name === 'favicon.svg' || assetInfo.name.startsWith('icons/payment/')) {
+              return `[name][extname]`
+            }
+            return `assets/[name]-[hash][extname]`
           }
-          return 'assets/[name]-[hash][extname]'
+          return `assets/[name]-[hash][extname]`
         }
       }
     }
