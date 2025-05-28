@@ -1,5 +1,4 @@
-import React, { useCallback, useRef, useEffect } from 'react';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import type { Product } from '../types';
 import styles from '../styles/ProductsPage.module.css';
@@ -12,7 +11,8 @@ interface ProductGridProps {
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, error, newProductId }) => {
-  const parentRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 20 });
   
   // Calculate grid columns based on viewport width
   const getGridColumns = useCallback(() => {
@@ -35,15 +35,43 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, error, n
     return () => window.removeEventListener('resize', handleResize);
   }, [getGridColumns]);
 
-  // Calculate rows for virtualization
-  const rowCount = Math.ceil(products.length / columns);
+  // Handle scroll and update visible range
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
 
-  const rowVirtualizer = useVirtualizer({
-    count: rowCount,
-    getScrollElement: () => parentRef.current,
-    estimateSize: useCallback(() => 400, []), // Approximate row height
-    overscan: 5, // Number of items to render outside of the visible area
-  });
+      const container = containerRef.current;
+      const scrollTop = container.scrollTop;
+      const containerHeight = container.clientHeight;
+      const itemHeight = 400; // Approximate height of each product card
+      const itemsPerRow = columns;
+      const rowHeight = itemHeight + 24; // itemHeight + gap
+
+      const startRow = Math.floor(scrollTop / rowHeight);
+      const visibleRows = Math.ceil(containerHeight / rowHeight);
+      const bufferRows = 2; // Number of rows to render above and below visible area
+
+      const start = Math.max(0, (startRow - bufferRows) * itemsPerRow);
+      const end = Math.min(
+        products.length,
+        (startRow + visibleRows + bufferRows) * itemsPerRow
+      );
+
+      setVisibleRange({ start, end });
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial calculation
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [columns, products.length]);
 
   if (isLoading) {
     return (
@@ -84,9 +112,12 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, error, n
     );
   }
 
+  const visibleProducts = products.slice(visibleRange.start, visibleRange.end);
+  const totalHeight = Math.ceil(products.length / columns) * (400 + 24); // itemHeight + gap
+
   return (
     <div 
-      ref={parentRef} 
+      ref={containerRef}
       className="min-h-[800px] overflow-auto"
       style={{
         contain: 'paint',
@@ -96,50 +127,40 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, error, n
     >
       <div
         style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
+          height: `${totalHeight}px`,
           width: '100%',
           position: 'relative',
         }}
       >
-        {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const startIndex = virtualRow.index * columns;
-          const rowProducts = products.slice(startIndex, startIndex + columns);
-          
-          return (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            transform: `translateY(${Math.floor(visibleRange.start / columns) * (400 + 24)}px)`,
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        >
+          {visibleProducts.map((product) => (
             <div
-              key={virtualRow.index}
+              key={product.id}
+              id={`product-${product.id}`}
+              className={`${newProductId === product.id ? 'animate-highlight' : ''}`}
               style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: `${virtualRow.size}px`,
-                transform: `translateY(${virtualRow.start}px)`,
+                contain: 'paint',
+                willChange: 'transform',
                 pointerEvents: 'auto',
               }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
             >
-              {rowProducts.map((product) => (
-                <div
-                  key={product.id}
-                  id={`product-${product.id}`}
-                  className={`${newProductId === product.id ? 'animate-highlight' : ''}`}
-                  style={{
-                    contain: 'paint',
-                    willChange: 'transform',
-                    pointerEvents: 'auto',
-                  }}
-                >
-                  <ProductCard 
-                    product={product} 
-                    highlight={newProductId === product.id}
-                    loading="lazy"
-                  />
-                </div>
-              ))}
+              <ProductCard 
+                product={product} 
+                highlight={newProductId === product.id}
+                loading="lazy"
+              />
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );
