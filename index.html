@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <!-- Favicon configuration -->
     <link rel="icon" type="image/svg+xml" href="/MyShopping/favicon.svg" />
     <link rel="apple-touch-icon" href="/MyShopping/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="ShoppyGlobe - Your one-stop destination for all your shopping needs" />
     <meta name="theme-color" content="#4F46E5" />
     <title>ShoppyGlobe - Online Shopping</title>
@@ -31,10 +31,21 @@
       .theme-loaded {
         transition: background-color 0.3s ease, color 0.3s ease;
       }
+      
+      /* Prevent floating during scroll */
+      html, body {
+        height: 100%;
+        overflow-x: hidden;
+        position: relative;
+      }
+      
+      body {
+        overscroll-behavior-y: none;
+      }
     </style>
   </head>
-  <body class="bg-gradient-radial">
-    <div id="root"></div>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
