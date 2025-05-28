@@ -30,9 +30,11 @@ const LoginPage: React.FC = () => {
       await login(formData.email, formData.password);
       toast.success('Login successful!');
       
-      // Redirect to the page they were trying to access, or home if none
-      const from = location.state?.from?.pathname || '/';
-      navigate(from, { replace: true });
+      // Get the return path from location state or default to home
+      const returnPath = location.state?.from?.pathname || '/';
+      // Ensure the path starts with a forward slash
+      const normalizedPath = returnPath.startsWith('/') ? returnPath : `/${returnPath}`;
+      navigate(normalizedPath, { replace: true });
     } catch (error) {
       toast.error('Login failed. Please check your credentials.');
     } finally {

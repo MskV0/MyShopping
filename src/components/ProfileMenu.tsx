@@ -38,7 +38,13 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = () => {
   const handleSignOut = () => {
     logout();
     toast.success('Signed out successfully');
-    navigate('/');
+    navigate('/', { replace: true });
+    setIsOpen(false);
+  };
+
+  const handleSignIn = () => {
+    navigate('/login', { replace: true });
+    setIsOpen(false);
   };
 
   const baseMenuItems = [
@@ -76,7 +82,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = () => {
       icon: LogOut,
       label: 'Sign Out',
       onClick: handleSignOut,
-      className: 'text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-dark-border mt-2 border-t border-gray-100 dark:border-dark-border',
+      className: 'text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300',
     },
   ];
 
@@ -90,7 +96,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = () => {
     {
       icon: LogIn,
       label: 'Sign In',
-      onClick: () => navigate('/login'),
+      onClick: handleSignIn,
       className: 'text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300',
     },
   ];

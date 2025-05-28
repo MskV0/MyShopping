@@ -12,8 +12,10 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const location = useLocation();
 
   if (!isAuthenticated) {
+    // Store the full path including hash for redirect after login
+    const returnPath = location.pathname + location.search;
     toast.error('Please login to continue');
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: { pathname: returnPath } }} replace />;
   }
 
   return <>{children}</>;
