@@ -1,54 +1,54 @@
-# React + TypeScript + Vite
+# ShoppyGlobe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ShoppyGlobe is a modern, responsive e-commerce web application built with React, TypeScript, and Vite. It features a beautiful UI, dark mode support, user authentication, shopping cart, wishlist, order management, and more.
 
-Currently, two official plugins are available:
+## Live Demo
+Visit the live demo at: [https://mskv0.github.io/MyShopping/](https://mskv0.github.io/MyShopping/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- Modern responsive design with dark mode
+- User authentication (login, register, protected routes)
+- Product listing, search, and filtering
+- Shopping cart and wishlist with persistence
+- Order management and payment methods
+- Profile management and settings
+- Accessible and performant UI
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
+- Node.js (v16 or higher recommended)
+- npm or yarn
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Installation
+```bash
+git clone https://github.com/MskV0/MyShopping.git
+cd MyShopping
+npm install
+# or
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### Running the App
+```bash
+npm run dev
+# or
+yarn dev
 ```
+
+### Building for Production
+```bash
+npm run build
+# or
+yarn build
+```
+
+## Deployment
+This project is automatically deployed to GitHub Pages using GitHub Actions. The deployment process is triggered on every push to the main branch. You can also manually trigger the deployment from the Actions tab in the GitHub repository.
+
+## Repository
+[https://github.com/MskV0/MyShopping](https://github.com/MskV0/MyShopping)
+
+---
+
+This project was bootstrapped with [Vite](https://vitejs.dev/) and uses [Tailwind CSS](https://tailwindcss.com/) for styling.
