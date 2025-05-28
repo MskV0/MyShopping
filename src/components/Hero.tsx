@@ -35,6 +35,11 @@ const Hero: React.FC = () => {
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="lg:grid lg:grid-cols-12 lg:gap-8">
                 <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+                  <div className="mb-4">
+                    <span className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-indigo-100 text-sm sm:text-base font-medium">
+                      Shop Smarter, Live Better
+                    </span>
+                  </div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight sm:leading-normal">
                     <span className="block text-white">
                       Discover Amazing

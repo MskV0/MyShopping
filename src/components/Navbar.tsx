@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import SearchBar from './SearchBar';
@@ -8,6 +8,12 @@ import ProfileMenu from './ProfileMenu';
 const Navbar: React.FC = () => {
   const { totalItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-white via-white to-indigo-50 dark:from-dark-bg dark:via-dark-bg dark:to-dark-bg backdrop-blur-sm shadow-lg relative">
